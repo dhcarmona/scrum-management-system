@@ -1,0 +1,24 @@
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, :class => "form-horizontal centered" }) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :email, required: true, autofocus: true, :label => "Correo Electrónico" %>
+    <%= f.input :username, required: false, label: "Nombre de Usuario"%>
+
+    <%= f.input :foto, :label => "Imagen de Perfil", :hint => "Archivos JPG/PNG" %>
+
+    <%= f.input :password, autocomplete: "off", hint: "Déjela en blanco si no desea cambiarla.", required: false, :label => "Contraseña"  %>
+
+    <%= f.input :password_confirmation, required: false, :label => "Confirmar Contraseña"  %>
+    <%= f.input :current_password, hint: "Se necesita su contraseña actual para confirmar los cambios", required: true %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Guardar Cambios" %>
+  </div>
+<% end %>
+

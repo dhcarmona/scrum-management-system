@@ -1,0 +1,16 @@
+
+</head>
+
+  
+<div class="container">
+  <div class="content">
+  <% flash.each do |key, value| %>
+        <div class="<%= key %>">
+              <%= value %>
+        </div>
+  <% end %>
+      <h2 align="center">¡Welcome!</h1>
+    <%= render :partial => "login_form" %>
+    <!-- end .content --></div>
+  <!-- end .container --></div>
+

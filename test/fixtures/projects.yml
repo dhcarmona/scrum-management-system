@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  product_owner_id: 1
+  scrum_master_id: 1
+  sprint_duration_in_weeks: 1
+
+two:
+  name: MyString
+  description: MyText
+  product_owner_id: 1
+  scrum_master_id: 1
+  sprint_duration_in_weeks: 1
