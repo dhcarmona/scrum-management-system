@@ -1,6 +1,10 @@
 Proyecto de AP - Scrum Management System
 ---------------------------
 
+OJO -> Las partes importantes del proyecto están completamente comentados. Estos son:
+  La carpeta app, dentro de ella la carpeta controllers, los controladores. Sobre todo el ProjectsController, está comentado.
+  En realidad lo que importa del proyecto es: la carpeta App, el archivo Gemfile.rb, el archivo Routes.rb.
+
 Les recomiendo que instalen Ruby On Rails usando esta guía http://railsapps.github.io/installrubyonrails-ubuntu.html
 Yo estoy usando la version 4.0.4 pero con que sea mayor a 4 están bien.
 
