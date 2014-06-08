@@ -1,32 +1,23 @@
 <div class="container">
-  <div class="row">
-    <div class="offset3 span6">
-        <h3 align="center">Registrar Usuario</h1>
 
+        
         <p>&nbsp;</p>
 
-      <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), :html => { :class => "form-horizontal centered"}) do |f| %>
-        <%= f.error_notification %>
+    <div class="panel panel-primary" width="500px">
+      <div class="panel-heading"><h3 class="panel-title">Sign Up!</h3></div>
+        <div align="center">
+            <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: 'form-horizontal'}) do |f| %>
+                    <%= f.error_notification %>
 
-        <div class="form-inputs">
-          <%= f.input :email, required: true, autofocus: true, :label => "Correo Electrónico", :placeholder => "pedro@dominio.com", :as => "email"%>
-          <%= f.input :password, required: true, :label => "Contraseña", :placeholder => "8 caracteres mínimo." %>
-          <%= f.input :password_confirmation, :label => "Confirmar Contraseña" %>
-          <%= f.input :foto, :label => "Imagen de Perfil", :hint => "Archivos JPG/PNG" %>
-
+                      <%= f.input :email, :input_html => {:style=> 'width: 200px', :align=>"center"}, required: true, autofocus: true, :label => "Email", :placeholder => "peter@domain.com", :as => "email"%>
+                      <%= f.input :password, :input_html => {:style=> 'width: 200px'}, required: true, :label => "Password", :placeholder => "8 characters or more." %>
+                      <%= f.input :password_confirmation, :input_html => {:style=> 'width: 200px'}, required: true, :label => "Password Confirmation" %>
+              
+                        <%= f.button :submit, "Create Account", :class => "btn btn-primary" %>
+                    
+                  <% end %>
         </div>
-
-        <div class="row">
-          <div class="col-md-4">
-          </div>
-          <div class="col-md-4">
-            <%= f.button :submit, "Registrar", :class => "btn btn-primary" %>
-          </div>
-        </div>
-        
-      <% end %>
     </div>
-  </div>
 </div>
 
 

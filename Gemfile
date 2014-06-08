@@ -10,7 +10,7 @@ gem 'devise'
 gem 'cancan'
 gem 'bootstrap-sass', '~> 3.1.1'
 gem 'datetimepicker-rails', :require => 'datetimepicker-rails', :git => 'https://github.com/zpaulovics/datetimepicker-rails.git'
-gem 'simple_form'
+gem 'simple_form', '~> 3.1.0.rc1'
 gem 'therubyracer', '0.11.0beta8'
 gem 'node'
 

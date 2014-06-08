@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   resources :projects
-
   devise_for :users
+  resources :users
   root 'misc#about'
 
   get "misc/about"

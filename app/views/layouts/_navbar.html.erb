@@ -2,16 +2,21 @@
 <%= navbar_header brand: 'ScrumManagement', brand_link: '/' %>
   <%= navbar_collapse do%>
             <%= navbar_group id: 'menu' do %>
-            <%= navbar_dropdown 'Projects' do %>
-                <%= navbar_item 'Manage', '/projects' %>
-                <%= navbar_item 'Create new', '/projects/new' %>
-            <% end %>
+            <% if current_user %>
+                <%= navbar_dropdown 'My Projects' do %>
+                    <%= navbar_item 'Manage', user_path(current_user.id) %>
+                    <%= navbar_item 'Create new', '/projects/new' %>
+                <% end %>
+            <% end %> 
         <% end %>
         <%= navbar_group class: 'foo', id: 'about', align: 'right' do %>
                 <%= navbar_item 'Help', '/misc/help' %>
                 <%= navbar_item 'About SMS', '/misc/about' %>
                 <% if current_user %>
-                    <%= navbar_item 'Log Out', destroy_user_session_path %>
+                        <li >
+                          <a href="/users/sign_out" data-method="delete">
+                            Log Out
+                            </a></li>
                 <% else %>
                     <%= navbar_item 'Log In', new_user_session_path %>
                 <% end %> 
