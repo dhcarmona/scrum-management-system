@@ -1,4 +1,7 @@
 Proyecto de AP - Scrum Management System
+---- URL de producción temporal: http://sms-cr.sytes.net
+    Todos los cambios que hagan, pásenme el repo y yo le hago merge manualmente. Esa dirección es mi compu, por lo que 
+    probablemente no esté funcionando si yo no estoy en mi casa.
 ---------------------------
 
 OJO -> Las partes importantes del proyecto están completamente comentados. Estos son:
