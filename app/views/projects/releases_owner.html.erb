@@ -1,0 +1,44 @@
+<div class="container">
+<h1 align="center"><span class="label label-primary">Releases for Project: <%= @project.name %></span></h1>
+<p>&nbsp;</p>
+	<p align="center"><%= link_to 'Add Release',new_release_path(:project_id => @project.id), :class => "btn btn-default btn-lg"%></p>
+		    <p>&nbsp;</p>
+			<% cols = 1 %>
+			<% i = 0 %>		   		
+			<% @project.releases.each do |release|%> 
+				
+			   	<% if cols == 1%>
+			   		<div class="row">
+			   	<% end %>
+			   		<div align="center">
+						<div class="col-sm-6 col-lg-3">	
+				   			<div class="panel panel-primary">
+				   				<div class="panel-heading"><h3 class="panel-title"><%= "User Story" %></h3></div>
+				   				<strong>Release #:  </strong><%= release.id %><br>
+				   				<strong>Amount of Sprints:  </strong><%= release.sprints.count %><br>
+				   					<div class="panel-footer">
+					   					<%= link_to 'Details', release%>
+											<%= "---" %>
+									   		<%= link_to 'Edit', edit_release_path(release)%>
+									   		<%= "---" %>
+									   		<%= link_to 'Delete', release, method: :delete, data: { confirm: 'Are you sure?' } %>
+									   		
+				   					</div>
+				   				</div>
+				   			</div>
+				   	</div>
+				   	<% i += 1 %>
+				    <% if (cols == 4) %>
+				   		</div>	
+				   		<% cols = 0 %>
+				    <% end %>
+				    <% cols += 1 %>
+			<% end %>
+			<% if (cols != 5 && cols != 1) %>
+			   </div>
+			<% end %>
+			
+			<p>&nbsp;</p>		
+
+
+</div>

@@ -1,0 +1,31 @@
+<h1>Listing user_story_tasks</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>User story</th>
+      <th>Stimated effort in hours</th>
+      <th>Actual effort in hours</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user_story_tasks.each do |user_story_task| %>
+      <tr>
+        <td><%= user_story_task.description %></td>
+        <td><%= user_story_task.user_story_id %></td>
+        <td><%= user_story_task.stimated_effort_in_hours %></td>
+        <td><%= user_story_task.actual_effort_in_hours %></td>
+        <td><%= link_to 'Show', user_story_task %></td>
+        <td><%= link_to 'Edit', edit_user_story_task_path(user_story_task) %></td>
+        <td><%= link_to 'Destroy', user_story_task, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New User story task', new_user_story_task_path %>

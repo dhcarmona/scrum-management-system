@@ -1,0 +1,12 @@
+class CreateUserStoryTasks < ActiveRecord::Migration
+  def change
+    create_table :user_story_tasks do |t|
+      t.text :description
+      t.int :user_story_id
+      t.int :stimated_effort_in_hours
+      t.int :actual_effort_in_hours
+
+      t.timestamps
+    end
+  end
+end

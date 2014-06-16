@@ -5,13 +5,21 @@
             <% if current_user %>
                 <%= navbar_dropdown 'My Projects' do %>
                     <%= navbar_item 'Manage', user_path(current_user.id) %>
-                    <%= navbar_item 'Create new', '/projects/new' %>
+                    <% if current_user.isadmin %>
+                        <%= navbar_item 'Create new', '/projects/new' %>
+                    <%end %>
                 <% end %>
             <% end %> 
         <% end %>
         <%= navbar_group class: 'foo', id: 'about', align: 'right' do %>
+
+                <% if current_user && current_user.isadmin %>
+                    <%= navbar_dropdown 'Administrator' do %>
+                        <%= navbar_item 'Setup Administrator Rights', users_set_sysadmins_path %>
+                    <% end %>
+                <% end %> 
+
                 <%= navbar_item 'Help', '/misc/help' %>
-                <%= navbar_item 'About SMS', '/misc/about' %>
                 <% if current_user %>
                         <li >
                           <a href="/users/sign_out" data-method="delete">

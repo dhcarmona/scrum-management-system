@@ -1,0 +1,30 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @user_story.description %>
+</p>
+
+<p>
+  <strong>Priority:</strong>
+  <%= @user_story.priority %>
+</p>
+
+<p>
+  <strong>Sprint:</strong>
+  <%= @user_story.sprint_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @user_story.user_id %>
+</p>
+
+
+<p>
+  <strong>P:</strong>
+  <%= @user_story.project.id %>
+</p>
+
+<%= link_to 'Edit', edit_user_story_path(@user_story) %> |
+<%= link_to 'Back', user_stories_path %>

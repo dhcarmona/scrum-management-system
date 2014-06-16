@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="panel panel-primary" width="500px">
+      <div class="panel-heading"><h3 class="panel-title">Admin Rights</h3></div>
+        <div align="center">
+
+              <table class="table" width="145">
+                  <tr>  
+                      <td width="100"><strong>Email</strong></td>
+                      <td width="15"><strong>User type</strong></td>
+                      <td width="15"></td>
+                      </tr>
+                      <% @users.each do |user| %>
+                            <tr>
+                            <td width="100"><%= user.email %></td>
+                            <% if (user.isadmin ==true) %>
+                              <td width="15">System administrator</td>
+                              <td width="15"><%= link_to 'Revoke admin rights', toggle_sysadmin_path(user.id), method: :post, data: { confirm: 'Are you sure?' } %></td>
+                            <% else %>
+                              <td width="15">Regular user</td>
+                              <td><%= link_to 'Grant admin rights', toggle_sysadmin_path(user.id), method: :post, data: { confirm: 'Are you sure?' } %></td>
+                            <% end #if%>
+                            </tr>
+                      <% end #each%> 
+                  </tr>
+            </table>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,74 @@
+class SuccessCriterionsController < ApplicationController
+  before_action :set_success_criterion, only: [:show, :edit, :update, :destroy]
+
+  # GET /success_criterions
+  # GET /success_criterions.json
+  def index
+    @success_criterions = SuccessCriterion.all
+  end
+
+  # GET /success_criterions/1
+  # GET /success_criterions/1.json
+  def show
+  end
+
+  # GET /success_criterions/new
+  def new
+    @success_criterion = SuccessCriterion.new
+  end
+
+  # GET /success_criterions/1/edit
+  def edit
+  end
+
+  # POST /success_criterions
+  # POST /success_criterions.json
+  def create
+    @success_criterion = SuccessCriterion.new(success_criterion_params)
+
+    respond_to do |format|
+      if @success_criterion.save
+        format.html { redirect_to @success_criterion, notice: 'Success criterion was successfully created.' }
+        format.json { render :show, status: :created, location: @success_criterion }
+      else
+        format.html { render :new }
+        format.json { render json: @success_criterion.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # PATCH/PUT /success_criterions/1
+  # PATCH/PUT /success_criterions/1.json
+  def update
+    respond_to do |format|
+      if @success_criterion.update(success_criterion_params)
+        format.html { redirect_to @success_criterion, notice: 'Success criterion was successfully updated.' }
+        format.json { render :show, status: :ok, location: @success_criterion }
+      else
+        format.html { render :edit }
+        format.json { render json: @success_criterion.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
+  # DELETE /success_criterions/1
+  # DELETE /success_criterions/1.json
+  def destroy
+    @success_criterion.destroy
+    respond_to do |format|
+      format.html { redirect_to success_criterions_url, notice: 'Success criterion was successfully destroyed.' }
+      format.json { head :no_content }
+    end
+  end
+
+  private
+    # Use callbacks to share common setup or constraints between actions.
+    def set_success_criterion
+      @success_criterion = SuccessCriterion.find(params[:id])
+    end
+
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def success_criterion_params
+      params.require(:success_criterion).permit(:description, :completed, :user_story_task_id)
+    end
+end

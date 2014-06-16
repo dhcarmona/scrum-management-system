@@ -1,0 +1,16 @@
+<%= simple_form_for(@risk) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :identifier %>
+    <%= f.input :short_description %>
+    <%= f.input :detailed_description %>
+    <%= f.input :chance %>
+    <%= f.input :responsible_id %>
+    <%= f.input :action_plan %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

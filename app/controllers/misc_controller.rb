@@ -11,6 +11,12 @@ class MiscController < ApplicationController
 		# al llegar al final de la acción, el controlador muestra la vista misc/help
 	end
 
+	def about
+		if user_signed_in?
+			redirect_to user_path(current_user)
+		end
+	end
+
 	# el controlador hace lo mismo para cada vez que se le llama con alguna acción random, por ejemplo,
 	# si se le llama con misc/about, aunque no tenga accion about, igual muestra la vista correspondiente.
 

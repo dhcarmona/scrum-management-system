@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @success_criterion.description %>
+</p>
+
+<p>
+  <strong>Completed:</strong>
+  <%= @success_criterion.completed %>
+</p>
+
+<p>
+  <strong>User story task:</strong>
+  <%= @success_criterion.user_story_task_id %>
+</p>
+
+<%= link_to 'Edit', edit_success_criterion_path(@success_criterion) %> |
+<%= link_to 'Back', success_criterions_path %>

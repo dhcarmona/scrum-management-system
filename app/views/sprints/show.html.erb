@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Release:</strong>
+  <%= @sprint.release_id %>
+</p>
+
+<p>
+  <strong>Sprint review:</strong>
+  <%= @sprint.sprint_review %>
+</p>
+
+<%= link_to 'Edit', edit_sprint_path(@sprint) %> |
+<%= link_to 'Back', sprints_path %>

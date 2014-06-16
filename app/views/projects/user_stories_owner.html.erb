@@ -1,0 +1,56 @@
+<div class="container">
+<h1 align="center"><span class="label label-primary">User Stories for Project: <%= @project.name %></span></h1>
+<p>&nbsp;</p>
+	<p align="center"><%= link_to 'Add User Story',new_user_story_path(:project_id => @project.id), :class => "btn btn-default btn-lg"%></p>
+
+			<% cols = 1 %>
+			<% i = 0 %>
+			<% @project.user_stories.each do |story|%> 
+				
+			   	<% if cols == 1%>
+			   		<div class="row">
+			   	<% end %>
+			   		<div align="center">
+						<div class="col-sm-6 col-lg-3">	
+				   			<div class="panel panel-primary">
+				   				<div class="panel-heading"><h3 class="panel-title"><%= "User Story" %></h3></div>
+				   				<strong>Description:  </strong><%= story.description %><br>
+				   				<strong>Priority:  </strong><%= story.priority %><br>
+				   				<strong>Points:  </strong><%= story.points %><br>
+				   				<% if !story.user.nil? %>
+				   					<strong>Responsible:  </strong><%= story.user.email %><br>
+				   				<%else%>
+				   					<strong>Responsible:  </strong><%= "Not yet assigned" %><br>
+				   				<%end%>
+				   				<% if !story.sprint.nil? %>
+				   					<strong>Sprint:  </strong><%= story.sprint.email %><br>
+				   				<%else%>
+				   					<strong>Sprint #:  </strong><%= "Not yet assigned" %><br>
+				   				<%end%>
+				   					<div class="panel-footer">
+					   					<%= link_to 'Details', story%>
+											<%= "---" %>
+									   		<%= link_to 'Edit', edit_user_story_path(story)%>
+									   		<%= "---" %>
+									   		<%= link_to 'Delete', story, method: :delete, data: { confirm: 'Are you sure?' } %>
+									   		
+				   					</div>
+				   				</div>
+				   			</div>
+				   		</div>
+				   	</div>
+				   	<% i += 1 %>
+				    <% if (cols == 4) %>
+				   		</div>	
+				   		<% cols = 0 %>
+				    <% end %>
+				    <% cols += 1 %>
+			<% end %>
+			<% if (cols != 5 && cols != 1) %>
+			   
+			<% end %>
+			
+			<p>&nbsp;</p>		
+
+
+</div>

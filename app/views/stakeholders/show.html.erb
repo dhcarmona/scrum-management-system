@@ -1,0 +1,39 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @stakeholder.name %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @stakeholder.email %>
+</p>
+
+<p>
+  <strong>Phone number:</strong>
+  <%= @stakeholder.phone_number %>
+</p>
+
+<p>
+  <strong>Expectations:</strong>
+  <%= @stakeholder.expectations %>
+</p>
+
+<p>
+  <strong>Interest:</strong>
+  <%= @stakeholder.interest %>
+</p>
+
+<p>
+  <strong>Power:</strong>
+  <%= @stakeholder.power %>
+</p>
+
+<p>
+  <strong>Project:</strong>
+  <%= @stakeholder.project_id %>
+</p>
+
+<%= link_to 'Edit', edit_stakeholder_path(@stakeholder) %> |
+<%= link_to 'Back', stakeholders_path %>

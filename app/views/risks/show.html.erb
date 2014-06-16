@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Identifier:</strong>
+  <%= @risk.identifier %>
+</p>
+
+<p>
+  <strong>Short description:</strong>
+  <%= @risk.short_description %>
+</p>
+
+<p>
+  <strong>Detailed description:</strong>
+  <%= @risk.detailed_description %>
+</p>
+
+<p>
+  <strong>Chance:</strong>
+  <%= @risk.chance %>
+</p>
+
+<p>
+  <strong>Responsible:</strong>
+  <%= @risk.responsible_id %>
+</p>
+
+<p>
+  <strong>Action plan:</strong>
+  <%= @risk.action_plan %>
+</p>
+
+<%= link_to 'Edit', edit_risk_path(@risk) %> |
+<%= link_to 'Back', risks_path %>

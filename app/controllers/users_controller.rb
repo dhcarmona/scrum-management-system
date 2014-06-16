@@ -1,5 +1,12 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy, :toggle_sysadmin, :add_to_team, :remove_from_team]
+  
+  #Este filtro de abajo chequea que el usuario actual no sea nulo, es decir, que haya un usuario logueado
+  # Meter en el only las acciones que tengan que verificar esto.
+  before_action :current_user_nil_check, only: [:current_user_admin_check, :show] 
+
+  # Filtro: verifica que sea administrador. Incluir las acciones que necesitan permisos de admin. Incluye revisar nulo
+  before_action :current_user_admin_check, only: [:set_sysadmins, :index] 
 
   # GET /users
   # GET /users.json
@@ -10,8 +17,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    @is_scrum_master = Project.where(:scrum_master_id => @user.id)
-    @is_product_owner = Project.where(:product_owner_id => @user.id)
+    @projects = Project.all
   end
 
   # GET /users/new
@@ -23,11 +29,18 @@ class UsersController < ApplicationController
   def edit
   end
 
+  # GET /users/set_sysadmins
+  def set_sysadmins #para configurar los que van a ser sysadmins
+          @users = User.all #obtiene todos los usuarios
+      
+
+  end
+
   # POST /users
   # POST /users.json
   def create
     @user = User.new(user_params)
-
+    @user.isadmin = false #el usuario comienza no siendo sisadmin por default
     respond_to do |format|
       if @user.save
         format.html { redirect_to @user, notice: 'User was successfully created.' }
@@ -37,6 +50,37 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  #POST user/:id/add_to_team
+  def add_to_team
+    @project = Project.find(params[:project_id])
+    @project.users << User.find(@user.id)
+    redirect_to show_team_path(@project)
+
+  end
+
+  def remove_from_team
+    @project = Project.find(params[:project_id])
+    @project.users.delete(@user)
+    redirect_to show_team_path(@project)
+  end
+
+  # POST /user/:id
+  def toggle_sysadmin #hace el toggle de si un usuario es sisadmin o no
+    #en @user esta el usuario
+
+      if (@user.isadmin==true)
+        @user.isadmin = false
+      else
+        @user.isadmin = true
+      end #if
+      if (@user.isadmin.nil?)
+        @user.isadmin = true
+      end #if
+        @user.save
+        puts @user.inspect
+        redirect_to :action => "set_sysadmins"
   end
 
   # PATCH/PUT /users/1
@@ -74,5 +118,20 @@ class UsersController < ApplicationController
       params[:user]
     end
 
+    def current_user_nil_check
+      if (current_user.nil?)
+        redirect_to :controller => "misc", :action =>"about"
+      end
+    end
+
+    def current_user_admin_check
+      if (current_user.nil?)
+        redirect_to :controller => "misc", :action =>"about"
+      else 
+        if !(current_user.isadmin)
+        redirect_to :controller => "misc", :action =>"about"
+        end
+      end
+    end
 
 end

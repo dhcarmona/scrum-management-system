@@ -1,10 +1,35 @@
 Rails.application.routes.draw do
+
+
+  get "users/set_sysadmins"
+  resources :success_criterions
+
+  resources :user_story_tasks
+
+  resources :user_stories
+
+  resources :risks
+
+  resources :stakeholders
+
+  resources :sprints
+
+  resources :releases
+
   resources :projects
   devise_for :users
   resources :users
   root 'misc#about'
 
   get "misc/about"
+
+  get 'projects/:id/releases_owner' => 'projects#releases_owner', as: :releases_owner
+
+  get 'projects/:id/show_team' => 'projects#show_team', as: :show_team
+  get 'projects/:id/user_stories_owner' => 'projects#user_stories_owner', as: :user_stories_owner
+  post 'users/:id/add_to_team' => 'users#add_to_team', as: :add_to_team  
+  post 'users/:id/remove_from_team' => 'users#remove_from_team', as: :remove_from_team  
+  post 'users/:id/toggle_sysadmin' => 'users#toggle_sysadmin', as: :toggle_sysadmin
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

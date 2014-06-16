@@ -3,9 +3,12 @@ class ProjectsController < ApplicationController
   #Esta linea de abajo es un filtro. Los filtros son metodos que se llaman antes o despues de ciertas cosas.
   # Esta en particular dice que se va a llamar al metodo :set_project, antes de ejecutar las acciones
   # :show, :edit, :update, :destroy. El metodo :set_project está en lo más abajo del archivo.
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :show_team, :user_stories_owner, :releases_owner]
 
+  before_action :current_user_nil_check, only: [:show] 
 
+  # Filtro: verifica que sea administrador. Incluir las acciones que necesitan permisos de admin. Incluye revisar nulo
+  before_action :current_user_admin_check, only: [:show_team] 
 
 # Flujo usual de un controlador:
 # - El usuario inserta la ruta a la que quiere ir, o llega a ella por un boton o enlace.
@@ -36,15 +39,35 @@ class ProjectsController < ApplicationController
     # automáticamente carga el usuario en la variable @project, listo para la vista. Esto lo hace con el metodo :set_project
   end
 
+  # GET /projects/:id/user_stories
+  def user_stories_owner
+    
+  end
+
+
+  # GET /projects/:id/releases_owner
+  def releases_owner
+
+  end
+
+
+  # GET /projects/:id/show_team
+  def show_team
+    @all_users = User.all
+    @not_in_team = (@all_users-@project.users) | (@project.users-@all_users) #obtiene todos los usuarios que no son del equipo
+  end
+
   # GET /projects/new
   def new
     #crea un nuevo proyecto para que la vista le rellene los datos. Cuando la vista vuelve, envía los datos al
     # la accion create, que es POST; como es POST no tiene vista asociada.
     @project = Project.new
+    @users = User.all
   end
 
   # GET /projects/1/edit
   def edit
+    @users = User.all
   end
 
   # POST /projects
@@ -66,7 +89,7 @@ class ProjectsController < ApplicationController
                       # y va a hacer que .save retorne False.
 
 
-        format.html { redirect_to @project, notice: 'Project was successfully created.' }
+        format.html { redirect_to :controller => "misc", :action =>"about", notice: 'Project was successfully created.' }
         format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new }
@@ -80,7 +103,7 @@ class ProjectsController < ApplicationController
   def update
     respond_to do |format|
       if @project.update(project_params)
-        format.html { redirect_to @project, notice: 'Project was successfully updated.' }
+        format.html { redirect_to :controller => "misc", :action =>"about", notice: 'Project was successfully updated.' }
         format.json { render :show, status: :ok, location: @project }
       else
         format.html { render :edit }
@@ -94,7 +117,7 @@ class ProjectsController < ApplicationController
   def destroy
     @project.destroy
     respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
+      format.html { redirect_to :controller => "misc", :action =>"about", notice: 'Project was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
@@ -113,4 +136,21 @@ class ProjectsController < ApplicationController
       # parametro.
       params.require(:project).permit(:name, :description, :product_owner_id, :scrum_master_id, :sprint_duration_in_weeks)
     end
+
+    def current_user_nil_check
+      if (current_user.nil?)
+        redirect_to :controller => "misc", :action =>"about"
+      end
+    end
+
+    def current_user_admin_check
+      if (current_user.nil?)
+        redirect_to :controller => "misc", :action =>"about"
+      else 
+        if !(current_user.isadmin)
+        redirect_to :controller => "misc", :action =>"about"
+        end
+      end
+    end
+
 end

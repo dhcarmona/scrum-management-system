@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @user_story_task.description %>
+</p>
+
+<p>
+  <strong>User story:</strong>
+  <%= @user_story_task.user_story_id %>
+</p>
+
+<p>
+  <strong>Stimated effort in hours:</strong>
+  <%= @user_story_task.stimated_effort_in_hours %>
+</p>
+
+<p>
+  <strong>Actual effort in hours:</strong>
+  <%= @user_story_task.actual_effort_in_hours %>
+</p>
+
+<%= link_to 'Edit', edit_user_story_task_path(@user_story_task) %> |
+<%= link_to 'Back', user_story_tasks_path %>

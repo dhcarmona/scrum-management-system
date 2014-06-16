@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="panel panel-primary" width="500px">
+      <div class="panel-heading"><h3 class="panel-title">Team for Project: <%= @project.name %></h3></div>
+        <div align="center">
+
+              <table class="table" width="145">
+                  <tr>  
+                      <td width="100"><strong>Email</strong></td>
+                      <td width="15"><strong>Role</strong></td>
+                      <td width="15"></td>
+                      </tr>
+
+                      <tr>
+                            <td width="100"><%= @project.product_owner.email %></td>
+                            <td width="15">Product Owner</td>
+                            <td width="15"><%= link_to 'Set Product Owner', edit_project_path(@project)%></td>
+
+                      </tr>
+                      <tr>
+                            <td width="100"><%= @project.scrum_master.email %></td>
+                            <td width="15">Scrum Master</td>
+                            <td width="15"><%= link_to 'Set Scrum Master', edit_project_path(@project)%></td>
+
+                      </tr>
+
+                      <% @project.users.each do |user| %>
+                            <tr>
+                              <td width="100"><%= user.email %></td>
+                              <td width="15">Developer/Tester</td>
+                              <td width="15"><%= link_to 'Remove From Project', remove_from_team_path(:id => user.id, :project_id => @project.id), method: :post, data: { confirm: 'Are you sure?' } %></td>
+                            </tr>
+                      <% end #each%> 
+                  </tr>
+            </table>
+        </div>
+      </div>
+    
+
+    <div class="panel panel-primary" width="500px">
+      <div class="panel-heading"><h3 class="panel-title">Add Developer/Tester to Team</h3></div>
+        <div align="center">
+
+              <table class="table" width="145">
+                  <tr>  
+                      <td width="100"><strong>Email</strong></td>
+                      <td width="15"><strong>Role</strong></td>
+                      <td width="15"></td>
+                      </tr>
+
+                      <% @not_in_team.each do |user| %>
+                            <tr>
+                              <td width="100"><%= user.email %></td>
+                              <td width="15">None</td>
+                              <td width="15"><%= link_to 'Add To Project', add_to_team_path(:id => user.id, :project_id => @project.id), method: :post, data: { confirm: 'Are you sure?' } %></td>
+                            </tr>
+                      <% end #each%> 
+                  </tr>
+            </table>
+        </div>
+      </div>
+    </div>
+</div>

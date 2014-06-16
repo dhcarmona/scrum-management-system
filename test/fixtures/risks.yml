@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  identifier: MyString
+  short_description: MyString
+  detailed_description: MyText
+  chance: 1.5
+  responsible_id: 
+  action_plan: MyText
+
+two:
+  identifier: MyString
+  short_description: MyString
+  detailed_description: MyText
+  chance: 1.5
+  responsible_id: 
+  action_plan: MyText

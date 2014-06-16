@@ -1,15 +1,32 @@
-<%= simple_form_for(@project) do |f| %>
-  <%= f.error_notification %>
+<div class="container">
 
-  <div class="form-inputs">
-    <%= f.input :name %>
-    <%= f.input :description %>
-    <%= f.input :product_owner_id %>
-    <%= f.input :scrum_master_id %>
-    <%= f.input :sprint_duration_in_weeks %>
-  </div>
+        
+        <p>&nbsp;</p>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
-  </div>
-<% end %>
+    <div class="panel panel-primary" width="500px">
+      <div class="panel-heading"><h3 class="panel-title">Project Details</h3></div>
+        <div align="center">
+
+              <%= simple_form_for(@project) do |f| %>
+                <%= f.error_notification %>
+
+                <div class="form-inputs">
+                  <%= f.input :name, :input_html => {:style=> 'width: 200px', :align=>"center"} %>
+                  <%= f.input :description, :input_html => {:style=> 'width: 300px', :align=>"center"} %>
+                  <%= f.label "Product Owner" %>
+                  <%= f.collection_select :product_owner_id, @users, :id, :email, prompt: 'Choose an User', :label => "Product Owner" %>
+                  <br>
+                  <%= f.label "Scrum Master" %>
+                  <%= f.collection_select :scrum_master_id, @users, :id, :email, prompt: 'Choose an User', :label => "Product Owner" %>
+                  <%= f.input :sprint_duration_in_weeks, :input_html => {:style=> 'width: 100px', :align=>"center"} %>
+
+                </div>
+
+                <div class="form-actions">
+                  <%= f.button :submit, :class => "btn btn-primary" %>
+                  <p>&nbsp;</p>
+                </div>
+              <% end %>
+        </div>
+    </div>
+</div>              

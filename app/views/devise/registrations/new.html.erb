@@ -11,10 +11,10 @@
 
                       <%= f.input :email, :input_html => {:style=> 'width: 200px', :align=>"center"}, required: true, autofocus: true, :label => "Email", :placeholder => "peter@domain.com", :as => "email"%>
                       <%= f.input :password, :input_html => {:style=> 'width: 200px'}, required: true, :label => "Password", :placeholder => "8 characters or more." %>
-                      <%= f.input :password_confirmation, :input_html => {:style=> 'width: 200px'}, required: true, :label => "Password Confirmation" %>
+                      <%= f.input :password_confirmation, :input_html => {:style=> 'width: 200px'}, required: true, :label => "Password Confirmation", :placeholder => "The same as above!" %>
               
                         <%= f.button :submit, "Create Account", :class => "btn btn-primary" %>
-                    
+                    <p>&nbsp;</p>
                   <% end %>
         </div>
     </div>
