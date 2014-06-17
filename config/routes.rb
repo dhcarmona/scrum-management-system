@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get "misc/about"
 
   get 'projects/:id/releases_owner' => 'projects#releases_owner', as: :releases_owner
+  get 'projects/:id/add_to_team_project' => 'projects#add_to_team', as: :add_to_team_project
 
   get 'projects/:id/show_team' => 'projects#show_team', as: :show_team
   get 'projects/:id/user_stories_owner' => 'projects#user_stories_owner', as: :user_stories_owner

@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
   #Esta linea de abajo es un filtro. Los filtros son metodos que se llaman antes o despues de ciertas cosas.
   # Esta en particular dice que se va a llamar al metodo :set_project, antes de ejecutar las acciones
   # :show, :edit, :update, :destroy. El metodo :set_project está en lo más abajo del archivo.
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :show_team, :user_stories_owner, :releases_owner]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :show_team, :user_stories_owner, :releases_owner, :add_to_team]
 
   before_action :current_user_nil_check, only: [:show] 
 
@@ -23,6 +23,22 @@ class ProjectsController < ApplicationController
 #   - las acciones GET, los parámetros siempre se van por la URL y son visibles, en cambio en POST van empaquetados.
 
 
+
+  # POST /projects/:id/add_to_team
+  # params -> user_id, id, type (SM, PO, DEV)
+  def add_to_team 
+    @user = User.find(params[:user_id])
+    if (params[:type].eql? "SM")
+        @project.scrum_masters << @user
+    end
+    if (params[:type].eql? "DEV") 
+        @project.users << @user
+    end
+    if (params[:type].eql? "PO") 
+        @project.product_owners << @user      
+    end 
+    redirect_to show_team_path(@project)
+  end
 
   # GET /projects
   # GET /projects.json
@@ -54,7 +70,6 @@ class ProjectsController < ApplicationController
   # GET /projects/:id/show_team
   def show_team
     @all_users = User.all
-    @not_in_team = (@all_users-@project.users) | (@project.users-@all_users) #obtiene todos los usuarios que no son del equipo
   end
 
   # GET /projects/new

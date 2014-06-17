@@ -1,0 +1,13 @@
+<div class="container">
+    <div class="panel panel-primary" width="500px">
+      <div class="panel-heading"><h3 class="panel-title">Select Role</h3></div>
+        <div align="center">
+          <%= link_to 'Scrum Master', add_to_team_project_path(:user_id => @user.id, :id => @project.id, :type => "SM")%>
+          <%= "-----" %>
+          <%= link_to 'Product Owner', add_to_team_project_path(:user_id => @user.id, :id => @project.id, :type => "PO")%>
+          <%= "-----" %>
+          <%= link_to 'Developer/Tester', add_to_team_project_path(:user_id => @user.id, :id => @project.id, :type => "DEV")%>
+      </div>
+    </div>
+  </div>
+</div>

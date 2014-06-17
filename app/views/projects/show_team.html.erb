@@ -9,25 +9,27 @@
                       <td width="15"><strong>Role</strong></td>
                       <td width="15"></td>
                       </tr>
+                      <% @project.product_owners.each do |user| %>
+                        <tr>
+                              <td width="100"><%= user.email %></td>
+                              <td width="15">Product Owner</td>
+                              <td width="15"><%= link_to 'Remove from Team', remove_from_team_path(:project_id => @project.id, :id => user.id, :type => "PO"), method: :post, data: { confirm: 'Are you sure?' }%></td>
 
-                      <tr>
-                            <td width="100"><%= @project.product_owner.email %></td>
-                            <td width="15">Product Owner</td>
-                            <td width="15"><%= link_to 'Set Product Owner', edit_project_path(@project)%></td>
+                        </tr>
+                      <%end%>
+                      <% @project.scrum_masters.each do |user| %>
+                        <tr>
+                              <td width="100"><%= user.email %></td>
+                              <td width="15">Scrum Master</td>
+                              <td width="15"><%= link_to 'Remove Role', remove_from_team_path(:project_id => @project.id, :id => user.id, :type => "SM"), method: :post, data: { confirm: 'Are you sure?' }%></td>
 
-                      </tr>
-                      <tr>
-                            <td width="100"><%= @project.scrum_master.email %></td>
-                            <td width="15">Scrum Master</td>
-                            <td width="15"><%= link_to 'Set Scrum Master', edit_project_path(@project)%></td>
-
-                      </tr>
-
+                        </tr>
+                      <%end%>
                       <% @project.users.each do |user| %>
                             <tr>
                               <td width="100"><%= user.email %></td>
                               <td width="15">Developer/Tester</td>
-                              <td width="15"><%= link_to 'Remove From Project', remove_from_team_path(:id => user.id, :project_id => @project.id), method: :post, data: { confirm: 'Are you sure?' } %></td>
+                              <td width="15"><%= link_to 'Remove Role', remove_from_team_path(:project_id => @project.id, :id => user.id, :type => "DEV"), method: :post, data: { confirm: 'Are you sure?' }%></td>
                             </tr>
                       <% end #each%> 
                   </tr>
@@ -47,11 +49,11 @@
                       <td width="15"></td>
                       </tr>
 
-                      <% @not_in_team.each do |user| %>
+                      <% @all_users.each do |user| %>
                             <tr>
                               <td width="100"><%= user.email %></td>
                               <td width="15">None</td>
-                              <td width="15"><%= link_to 'Add To Project', add_to_team_path(:id => user.id, :project_id => @project.id), method: :post, data: { confirm: 'Are you sure?' } %></td>
+                              <td width="15"><%= link_to 'Add To Project', add_to_team_path(:id => user.id, :project_id => @project.id), method: :post %></td>
                             </tr>
                       <% end #each%> 
                   </tr>

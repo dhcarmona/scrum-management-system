@@ -55,14 +55,21 @@ class UsersController < ApplicationController
   #POST user/:id/add_to_team
   def add_to_team
     @project = Project.find(params[:project_id])
-    @project.users << User.find(@user.id)
-    redirect_to show_team_path(@project)
-
   end
 
+  #POST user/:id/remove_from_team
+  #params -> project_id, id, type (SM, PO, DEV)
   def remove_from_team
     @project = Project.find(params[:project_id])
-    @project.users.delete(@user)
+    if (params[:type].eql? "SM")
+        @project.scrum_masters.delete(@user)
+    end
+    if (params[:type].eql? "DEV") 
+        @project.users.delete(@user)
+    end
+    if (params[:type].eql? "PO") 
+        @project.product_owners.delete(@user)
+    end 
     redirect_to show_team_path(@project)
   end
 
