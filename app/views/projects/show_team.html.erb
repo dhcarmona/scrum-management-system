@@ -13,7 +13,11 @@
                         <tr>
                               <td width="100"><%= user.email %></td>
                               <td width="15">Product Owner</td>
+<<<<<<< HEAD
                               <td width="15"><%= link_to 'Remove Role', remove_from_team_path(:project_id => @project.id, :id => user.id, :type => "PO"), method: :post, data: { confirm: 'Are you sure?' }%></td>
+=======
+                              <td width="15"><%= link_to 'Remove from Team', remove_from_team_path(:project_id => @project.id, :id => user.id, :type => "PO"), method: :post, data: { confirm: 'Are you sure?' }%></td>
+>>>>>>> 83fca7697e987beafd37690dc44103de03a0df1a
 
                         </tr>
                       <%end%>

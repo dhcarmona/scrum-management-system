@@ -2,6 +2,7 @@
     <div class="panel panel-primary" width="500px">
       <div class="panel-heading"><h3 class="panel-title">Select Role</h3></div>
         <div align="center">
+<<<<<<< HEAD
           <% rol_disponible = false %>
           <% if !@project.scrum_masters.include? @user %>
             <%= link_to 'Scrum Master', add_to_team_project_path(:user_id => @user.id, :id => @project.id, :type => "SM"), :class => 'btn btn-large btn-default'%>
@@ -20,6 +21,13 @@
           <% if !rol_disponible %>
             <h4>No more roles available for this user in this project!</h4>
           <%end%>
+=======
+          <%= link_to 'Scrum Master', add_to_team_project_path(:user_id => @user.id, :id => @project.id, :type => "SM")%>
+          <%= "-----" %>
+          <%= link_to 'Product Owner', add_to_team_project_path(:user_id => @user.id, :id => @project.id, :type => "PO")%>
+          <%= "-----" %>
+          <%= link_to 'Developer/Tester', add_to_team_project_path(:user_id => @user.id, :id => @project.id, :type => "DEV")%>
+>>>>>>> 83fca7697e987beafd37690dc44103de03a0df1a
       </div>
     </div>
   </div>

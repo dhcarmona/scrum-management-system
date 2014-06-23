@@ -11,6 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20140622032910) do
 
   create_table "added_times", force: true do |t|
@@ -20,6 +21,9 @@ ActiveRecord::Schema.define(version: 20140622032910) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+=======
+ActiveRecord::Schema.define(version: 20140616224804) do
+>>>>>>> 83fca7697e987beafd37690dc44103de03a0df1a
 
   create_table "masters", force: true do |t|
     t.integer  "project_id"

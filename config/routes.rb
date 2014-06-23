@@ -39,8 +39,12 @@ Rails.application.routes.draw do
   get 'projects/:id/releases_master' => 'projects#releases_master', as: :releases_master
 
   get 'projects/:id/releases_owner' => 'projects#releases_owner', as: :releases_owner
+<<<<<<< HEAD
   get 'projects/:id/get_report' => 'projects#get_report', as: :get_report
 
+=======
+  get 'projects/:id/add_to_team_project' => 'projects#add_to_team', as: :add_to_team_project
+>>>>>>> 83fca7697e987beafd37690dc44103de03a0df1a
 
   get 'projects/:id/add_to_team_project' => 'projects#add_to_team', as: :add_to_team_project
   get 'projects/:id/user_stories_master' => 'projects#user_stories_master', as: :user_stories_master

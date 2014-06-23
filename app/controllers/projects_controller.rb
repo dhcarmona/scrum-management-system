@@ -3,10 +3,14 @@ class ProjectsController < ApplicationController
   #Esta linea de abajo es un filtro. Los filtros son metodos que se llaman antes o despues de ciertas cosas.
   # Esta en particular dice que se va a llamar al metodo :set_project, antes de ejecutar las acciones
   # :show, :edit, :update, :destroy. El metodo :set_project está en lo más abajo del archivo.
+<<<<<<< HEAD
   before_action :set_project, only: [:show, :edit, :update, :destroy, 
                                      :show_team, :user_stories_owner, 
                                      :releases_owner, :add_to_team, :user_stories_master,
                                      :releases_master, :user_stories_dev, :get_report]
+=======
+  before_action :set_project, only: [:show, :edit, :update, :destroy, :show_team, :user_stories_owner, :releases_owner, :add_to_team]
+>>>>>>> 83fca7697e987beafd37690dc44103de03a0df1a
 
   before_action :current_user_nil_check, only: [:show, :user_stories_dev] 
 
@@ -27,6 +31,7 @@ class ProjectsController < ApplicationController
 
 
 
+<<<<<<< HEAD
   # GET /projects/:id/get_report
   def get_report
     if !@project.scrum_masters.include? current_user
@@ -131,6 +136,8 @@ class ProjectsController < ApplicationController
     end
   end
 
+=======
+>>>>>>> 83fca7697e987beafd37690dc44103de03a0df1a
   # POST /projects/:id/add_to_team
   # params -> user_id, id, type (SM, PO, DEV)
   def add_to_team 
@@ -200,7 +207,10 @@ class ProjectsController < ApplicationController
   def show_team
 
     @all_users = User.all
+<<<<<<< HEAD
 
+=======
+>>>>>>> 83fca7697e987beafd37690dc44103de03a0df1a
   end
 
   # GET /projects/new
