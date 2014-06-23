@@ -2,7 +2,7 @@
 <div class="container">
 
 	<% if @user.isadmin %>
-		<h1 align="center"><span class="label label-warning">All Projects</span></h1>
+		<h1 align="center"><span class="label label-warning">As SysAdmin</span></h1>
 		    <p>&nbsp;</p>
 			<% cols = 1 %>
 			<% i = 0 %>
@@ -20,14 +20,14 @@
 
 
 					   					<%= link_to 'Details', project %>
-					   					<% if @user.isadmin %>
+					   					
 								   			<%= "---" %>
 									   		<%= link_to 'Edit', edit_project_path(project)%>
 									   		<%= "---" %>
 									   		<%= link_to 'Delete', project, method: :delete, data: { confirm: 'Are you sure?' } %>
 									   		<%= "---" %>
 									   		<%= link_to 'Team', show_team_path(project)%>
-									   	<%end%>
+									   	
 				   					</div>
 				   				</div>
 				   			</div>
@@ -47,7 +47,7 @@
 			<p>&nbsp;</p>		
 
    <%end%>
-   <h1 align="center"><span class="label label-primary">I'm the Scrum Master</span></h1>
+   <h1 align="center"><span class="label label-primary">As Scrum Master</span></h1>
    <% #En @user.projects_managed y @user.projects_owned están los proyectos respectivos, y en @user.projects estan los que no es SM ni PO. %>
 		    <p>&nbsp;</p>
 			<% cols = 1 %>
@@ -63,13 +63,14 @@
 				   				<div class="panel-heading"><h3 class="panel-title"><%= project.name %></h3></div>
 				   				<%= project.description %>
 				   					<div class="panel-footer">
-				   					<%= link_to 'Details', project %>
-					   					<% if @user.isadmin %>
+				   							<%= link_to 'Details', project %>
+					   					
 								   			<%= "---" %>
-									   		<%= link_to 'Edit', edit_project_path(project)%>
+									   		<%= link_to 'User Stories', user_stories_master_path(project)%>
 									   		<%= "---" %>
-									   		<%= link_to 'Delete', project, method: :delete, data: { confirm: 'Are you sure?' } %>
-									   	<%end%>
+									   		<%= link_to 'Releases', releases_master_path(project)%>
+									   		<%= "---" %>
+									   		<%= link_to 'Get Report', get_report_path(project)%>
 				   					</div>
 				   				</div>
 				   			</div>
@@ -88,13 +89,13 @@
 			
 			<p>&nbsp;</p>	
 
-   <h1 align="center"><span class="label label-success">I'm the Product Owner</span></h1>
+   <h1 align="center"><span class="label label-success">As Product Owner</span></h1>
 
     <p>&nbsp;</p>
 	<% cols = 1 %>
 	<% i = 0 %>
 
-	<% @user.projects_owned.each do |project|%> 
+	<% @user.products_owned.each do |project|%> 
 
 	   	<% if cols == 1%>
 	   		<div class="row">
@@ -128,7 +129,7 @@
 	<% end %>	
 	<p>&nbsp;</p>
 
-   <h1 align="center"><span class="label label-info">I'm Developing or Testing</span></h1>
+   <h1 align="center"><span class="label label-info">As Developer/Tester</span></h1>
 
     <p>&nbsp;</p>
 	<% cols = 1 %>
@@ -146,7 +147,12 @@
 		   		<div class="panel panel-info">
 		   		<div class="panel-heading"><h3 class="panel-title"><%= project.name %></h3></div>
 		   		<%= project.description %>
-		   		<div class="panel-footer">opc</div>
+		   		<div class="panel-footer">
+		   				<%= link_to 'Details', project%>
+						<%= "---" %>
+		   				<%= link_to 'My User Stories', user_stories_dev_path(project)%>
+
+		   		</div>
 		   	</div>
 		   		</div></div>
 	   		<% i += 1 %>

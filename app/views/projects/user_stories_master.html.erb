@@ -1,8 +1,7 @@
 <div class="container">
 <h1 align="center"><span class="label label-primary">User Stories for Project: <%= @project.name %></span></h1>
 <p>&nbsp;</p>
-	<p align="center"><%= link_to 'Add User Story',new_user_story_path(:project_id => @project.id), :class => "btn btn-default btn-lg"%></p>
-
+	
 			<% cols = 1 %>
 			<% i = 0 %>
 			<% @project.user_stories.each do |story|%> 
@@ -23,16 +22,14 @@
 				   					<strong>Responsible:  </strong><%= "Not yet assigned" %><br>
 				   				<%end%>
 				   				<% if !story.sprint.nil? %>
-				   					<strong>Sprint:  </strong><%= story.sprint.id %><br>
+				   					<strong>Sprint #:  </strong><%= story.sprint.id %><br>
 				   				<%else%>
 				   					<strong>Sprint #:  </strong><%= "Not yet assigned" %><br>
 				   				<%end%>
 				   					<div class="panel-footer">
-					   					<%= link_to 'Details', story%>
-											<%= "---" %>
-									   		<%= link_to 'Edit', edit_user_story_path(story)%>
-									   		<%= "---" %>
-									   		<%= link_to 'Delete', story, method: :delete, data: { confirm: 'Are you sure?' } %>
+									   	<%= link_to 'Dev/Tester Assignment', responsible_assignment_path(story)%>
+									   	<%='---'%>
+									   	<%= link_to 'Sprint Assignment', sprint_assignment_path(story)%>
 				   					</div>
 				   				</div>
 				   			</div>

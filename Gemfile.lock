@@ -6,6 +6,7 @@ GIT
 
 GEM
   remote: https://rubygems.org/
+  remote: http://gems.github.com/
   specs:
     actionmailer (4.1.0)
       actionpack (= 4.1.0)
@@ -35,8 +36,8 @@ GEM
       tzinfo (~> 1.1)
     arel (5.0.1.20140414130214)
     bcrypt (3.1.7)
-    bootstrap-navbar (2.1.1)
-      gem_config (~> 0.3.0)
+    bootstrap-navbar (2.1.4)
+      gem_config (~> 0.3)
     bootstrap-sass (3.1.1.1)
       sass (~> 3.2)
     builder (3.2.2)
@@ -61,7 +62,7 @@ GEM
     hash-deep-merge (0.1.1)
     hike (1.2.3)
     i18n (0.6.9)
-    jbuilder (2.0.8)
+    jbuilder (2.1.1)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
     jquery-rails (3.1.0)
@@ -75,7 +76,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
-    minitest (5.3.4)
+    minitest (5.3.5)
     multi_json (1.10.1)
     mysql2 (0.3.16)
     node (0.0.2)
@@ -142,14 +143,14 @@ GEM
       coffee-rails
     tzinfo (1.2.1)
       thread_safe (~> 0.1)
-    uglifier (2.5.0)
+    uglifier (2.5.1)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
     wicked_pdf (0.10.2)
       rails
-    wkhtmltopdf-binary (0.9.9.2)
+    wkhtmltopdf-binary (0.9.9.3)
 
 PLATFORMS
   ruby

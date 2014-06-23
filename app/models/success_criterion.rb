@@ -1,4 +1,4 @@
 class SuccessCriterion < ActiveRecord::Base
-	belongs_to :user_story_task
+	belongs_to :user_story
 	
 end

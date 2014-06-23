@@ -6,12 +6,32 @@ class UsersController < ApplicationController
   before_action :current_user_nil_check, only: [:current_user_admin_check, :show] 
 
   # Filtro: verifica que sea administrador. Incluir las acciones que necesitan permisos de admin. Incluye revisar nulo
-  before_action :current_user_admin_check, only: [:set_sysadmins, :index] 
+  before_action :current_user_admin_check, only: [:set_sysadmins, :index, :create_user_admin] 
 
   # GET /users
   # GET /users.json
   def index
     @users = User.all
+  end
+
+  #GET no id
+  def create_user_admin
+    @user = User.new
+  end
+
+  #POST
+  def register_new_user
+    @user = User.new(user_params)
+    @user.isadmin = false #el usuario comienza no siendo sisadmin por default
+    respond_to do |format|
+      if @user.save
+        format.html { redirect_to current_user, notice: 'User was successfully created.' }
+        format.json { render :show, status: :created, location: @user }
+      else
+        format.html { redirect_to create_user_admin_path}
+        format.json { render json: @user.errors, status: :unprocessable_entity }
+      end
+    end  
   end
 
   # GET /users/1
@@ -54,15 +74,23 @@ class UsersController < ApplicationController
 
   #POST user/:id/add_to_team
   def add_to_team
+    @flags = {}
     @project = Project.find(params[:project_id])
-    @project.users << User.find(@user.id)
-    redirect_to show_team_path(@project)
-
   end
 
+  #POST user/:id/remove_from_team
+  #params -> project_id, id, type (SM, PO, DEV)
   def remove_from_team
     @project = Project.find(params[:project_id])
-    @project.users.delete(@user)
+    if (params[:type].eql? "SM")
+        @project.scrum_masters.delete(@user)
+    end
+    if (params[:type].eql? "DEV") 
+        @project.users.delete(@user)
+    end
+    if (params[:type].eql? "PO") 
+        @project.product_owners.delete(@user)
+    end 
     redirect_to show_team_path(@project)
   end
 
@@ -115,7 +143,7 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params[:user]
+      params.require(:user).permit(:email, :password, :encrypted_password)
     end
 
     def current_user_nil_check

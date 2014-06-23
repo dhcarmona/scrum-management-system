@@ -7,19 +7,32 @@
              
               <table class="table" width="260">
                     <tr>  
-                        <td width="100"><strong>Name</strong></td>
+                        <td width="60"><strong>Name</strong></td>
                         <td width="100"><strong>Description</strong></td>
-                        <td width="15"><strong>Product Owner</strong></td>
-                        <td width="15"><strong>Scrum Master</strong></td>
+                        <td width="15"><strong>Product Owners</strong></td>
+                        <td width="15"><strong>Scrum Masters</strong></td>
+                        <td width="15"><strong>Developers</strong></td>
                         <td width="15"><strong>Sprint Duration (in weeks)</strong></td>
                         <td width="15"><strong>Releases</strong></td>
                         </tr>
-
                         <tr>
                               <td width="100"><%= @project.name %></td>
                               <td width="100"><%= @project.description %></td>
-                              <td width="15"><%= @project.product_owner.email %></td>
-                              <td width="15"><%= @project.scrum_master.email %></td>
+                              <td width="15">
+                                <% @project.product_owners.each do |user|%>
+                                  <%= user.email %><br>
+                                <%end%>
+                              </td>
+                              <td width="15">
+                                <% @project.scrum_masters.each do |user|%>
+                                  <%= user.email %><br>
+                                <%end%>
+                              </td>
+                              <td width="15">
+                                <% @project.users.each do |user|%>
+                                  <%= user.email %><br>
+                                <%end%>
+                              </td>
                               <td width="15"><%= @project.sprint_duration_in_weeks %></td>
                               <td width="15"><%= @project.releases.count %></td>
                         </tr>

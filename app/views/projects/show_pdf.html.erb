@@ -1,0 +1,101 @@
+<%= wicked_pdf_javascript_include_tag "application"%>
+<%= wicked_pdf_stylesheet_link_tag 'application'%>
+
+<h1 align="center"><span class="label label-primary">Report for Project <%= @project.name %></span></h1>
+             <p>&nbsp;</p>
+              <table class="table" width="260">
+                    <tr>  
+                        <td width="60"><strong>Name</strong></td>
+                        <td width="100"><strong>Description</strong></td>
+                        <td width="15"><strong>Product Owners</strong></td>
+                        <td width="15"><strong>Scrum Masters</strong></td>
+                        <td width="15"><strong>Developers</strong></td>
+                        <td width="15"><strong>Sprint Duration (in weeks)</strong></td>
+                        <td width="15"><strong>Releases</strong></td>
+                        </tr>
+                        <tr>
+                              <td width="100"><%= @project.name %></td>
+                              <td width="100"><%= @project.description %></td>
+                              <td width="15">
+                                <% @project.product_owners.each do |user|%>
+                                  <%= user.email %><br>
+                                <%end%>
+                              </td>
+                              <td width="15">
+                                <% @project.scrum_masters.each do |user|%>
+                                  <%= user.email %><br>
+                                <%end%>
+                              </td>
+                              <td width="15">
+                                <% @project.users.each do |user|%>
+                                  <%= user.email %><br>
+                                <%end%>
+                              </td>
+                              <td width="15"><%= @project.sprint_duration_in_weeks %></td>
+                              <td width="15"><%= @project.releases.count %></td>
+                        </tr>
+
+                    </tr>
+                </table>
+
+<h2><span class="label label-primary">Releases:</span></h2>
+<p>&nbsp;</p>
+<% @project.releases.each_with_index do |release, index|%>
+<strong>Release #: </strong> <%= index+1 %><br>
+<strong>Amount of Sprints: </strong> <%= release.sprints.count %><br>
+
+<h3><span class="label label-warning">Sprint Information for Release No. <%= index+1 %>:</span></h3>
+<p>&nbsp;</p>
+  <% release.sprints.each_with_index do |sprint, index|%>
+  <strong>Sprint #: </strong> <%= index+1 %><br>
+
+  <strong>Amount of User Stories #: </strong> <%= sprint.user_stories.count %><br>
+  
+  <%= high_chart("sprint"+sprint.id.to_s, @charts[sprint.id]["hours"])%>
+
+  <center><h4>User Story Information for Sprint No. <%= index+1 %>:</h4><br></center>
+
+
+        <% sprint.user_stories.each_with_index do |story, index|%>
+
+              <table class="table" width="260">
+                    <tr>  
+                        <td width="100"><strong>Description</strong></td>
+                        <td width="15"><strong>Priority</strong></td>
+                        <td width="15"><strong>Assigned Points</strong></td>
+                        <td width="15"><strong>Responsible</strong></td>
+                        </tr>
+                        <tr>
+                             <td width="100"><%= story.description %></td>
+                                  <td width="15"><%= story.priority %></td>
+                                  <td width="15"><%= story.points %></td>
+                                  <td width="15"><%= story.user.email %></td>
+                        </tr>
+                </table>
+  <center><h4>Tasks</h4><br></center>
+              <table class="table" width="260">
+                    <tr>  
+                        <td width="100"><strong>Description</strong></td>
+                        <td width="15"><strong>Stimated Hours</strong></td>
+                        <td width="15"><strong>Actual Hours Worked</strong></td>
+                        </tr>
+                 <% story.user_story_tasks.each do |task|%>
+                        <tr>
+                             <td width="100"><%= task.description %></td>
+                                  <td width="15"><%= task.stimated_effort_in_hours %></td>
+                                  <td width="15"><%= task.actual_effort_in_hours %></td>
+                        </tr>
+                  <%end%>
+                </table>
+
+
+      
+
+       <%end%><br>
+
+
+ <%end%><br>
+
+
+
+<%end%><br>

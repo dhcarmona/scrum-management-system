@@ -3,9 +3,12 @@ class ProjectsController < ApplicationController
   #Esta linea de abajo es un filtro. Los filtros son metodos que se llaman antes o despues de ciertas cosas.
   # Esta en particular dice que se va a llamar al metodo :set_project, antes de ejecutar las acciones
   # :show, :edit, :update, :destroy. El metodo :set_project está en lo más abajo del archivo.
-  before_action :set_project, only: [:show, :edit, :update, :destroy, :show_team, :user_stories_owner, :releases_owner]
+  before_action :set_project, only: [:show, :edit, :update, :destroy, 
+                                     :show_team, :user_stories_owner, 
+                                     :releases_owner, :add_to_team, :user_stories_master,
+                                     :releases_master, :user_stories_dev, :get_report]
 
-  before_action :current_user_nil_check, only: [:show] 
+  before_action :current_user_nil_check, only: [:show, :user_stories_dev] 
 
   # Filtro: verifica que sea administrador. Incluir las acciones que necesitan permisos de admin. Incluye revisar nulo
   before_action :current_user_admin_check, only: [:show_team] 
@@ -24,6 +27,126 @@ class ProjectsController < ApplicationController
 
 
 
+  # GET /projects/:id/get_report
+  def get_report
+    if !@project.scrum_masters.include? current_user
+      redirect_to :controller => "misc", :action =>"about"
+    else
+
+      #obtener los burndown
+      @charts = {}
+
+      #por cada sprint
+      @project.sprints.each do |sprint|
+
+
+        charts_sprint = {}
+        charts_sprint["points"] =  LazyHighCharts::HighChart.new("graph") do |f|
+            f.title(:text => "Points Burndown Chart for Project " + sprint.release.project.name)
+            f.options[:xAxis][:categories] = []
+            f.options[:plotOptions][:column] = {:animation => :false}
+            points = []
+            total_points = sprint.total_stimated_points
+            points << total_points
+            current_date = sprint.created_at.to_date
+            f.options[:xAxis][:categories] << current_date
+            current_date += 1.day    
+            while current_date != (DateTime.now.to_date+1.day) do #por cada dia
+              points_this_day = 0
+              sprint.user_stories.each do |story| #por cada story
+                    date_completed = story.created_at.to_date
+                    tasks_completed= 0
+                    story.user_story_tasks.each do |task| #por cada task
+                        if task.stimated_effort_in_hours == task.actual_effort_in_hours #si el task esta completo
+                          tasks_completed += 1 #apuntar que se completo
+                        end
+                        if tasks_completed == story.user_story_tasks.count #si, en ese dia, estan completadas todas las tareas de ese story
+                            if story.added_times.first(:order => 'created_at DESC').to_date == current_date #si hoy es el dia en que se termino el story
+                               points_this_day = story.points #hoy se lograron los puntos del story 
+                            end 
+                              
+                          
+                        end
+                    end
+
+              end
+              total_points -= points_this_day
+              points << total_points
+              f.options[:xAxis][:categories] << current_date
+              current_date += 1.day      
+            end #while
+            f.series(:name => "Points Left", :yAxis => 0, :data => points)
+
+            f.yAxis [{:title => {:text => "Points Remaining", :min => 0}},
+            ]
+
+            f.legend(:align => "right", :verticalAlign => "top", :y => 75, :x => -50, :layout => "vertical")
+            f.chart({:defaultSeriesType => "column"})
+          end #graph do
+
+        charts_sprint["hours"] = LazyHighCharts::HighChart.new("graph") do |f|
+              f.title(:text => "Hours Burndown Chart for Project " + sprint.release.project.name)
+              f.options[:xAxis][:categories] = []
+              f.options[:plotOptions][:column] = {:animation => :false}
+              hours = []
+              total_hours = sprint.total_stimated_hours_of_work
+              hours << total_hours
+              current_date = sprint.created_at.to_date
+              f.options[:xAxis][:categories] << current_date
+              current_date += 1.day    
+              cont_prueba = 0 
+              while current_date != (DateTime.now.to_date+1.day) do
+                hours_this_day = 0
+                sprint.user_stories.each do |story|
+                      story.user_story_tasks.each do |task|
+                        task.added_times.each do |added_time|
+                          if added_time.datetime.to_date == current_date
+                            hours_this_day += added_time.hours
+                          end
+                        end
+                      end
+                end
+                total_hours -= hours_this_day
+                hours << total_hours
+                f.options[:xAxis][:categories] << current_date
+                current_date += 1.day      
+
+              end
+              f.series(:name => "Hours Left", :yAxis => 0, :data => hours)
+
+              f.yAxis [{:title => {:text => "Hours of Effort Remaining", :min => 0}},
+              ]
+
+              f.legend(:align => "right", :verticalAlign => "top", :y => 75, :x => -50, :layout => "vertical")
+              f.chart({:defaultSeriesType => "column"})
+            end #graph do
+        @charts[sprint.id] = charts_sprint #guarda el hash con los dos charts, para pasarlo al view
+      end #each sprint
+      render :pdf => "project", :template => "projects/show_pdf", :disable_javascript => false,
+              :margin => {:top => 20,
+                         :bottom  => 20,
+                         :left  => 20, 
+                         :right  => 20}, 
+            :disable_smart_shrinking => false
+    end
+  end
+
+  # POST /projects/:id/add_to_team
+  # params -> user_id, id, type (SM, PO, DEV)
+  def add_to_team 
+    @user = User.find(params[:user_id])
+    if (params[:type].eql? "SM")
+        @project.scrum_masters << @user
+    end
+    if (params[:type].eql? "DEV") 
+        @project.users << @user
+    end
+    if (params[:type].eql? "PO") 
+        @project.product_owners << @user      
+    end 
+    redirect_to show_team_path(@project)
+  end
+
   # GET /projects
   # GET /projects.json
   def index 
@@ -39,22 +162,45 @@ class ProjectsController < ApplicationController
     # automáticamente carga el usuario en la variable @project, listo para la vista. Esto lo hace con el metodo :set_project
   end
 
-  # GET /projects/:id/user_stories
-  def user_stories_owner
-    
+  # GET /projects/:id/user_stories_master
+  # Vista para mostrar los user stories del projecto a un master, debe mostrar la opción de asignar el user story a un developer.
+
+
+  def user_stories_dev
+    @user_stories = UserStory.where(:user_id => current_user.id)
   end
 
 
+
+  # GET /projects/:id/releases_master
+  # Vista para mostrar los releases del projecto a un master, debe mostrar la opción de asignar el user story a un developer.
+
+  def releases_master
+    if !@project.scrum_masters.include? current_user
+      redirect_to root_path
+    end
+  end
+
   # GET /projects/:id/releases_owner
   def releases_owner
+    if !@project.product_owners.include? current_user
+      redirect_to root_path
+    end
+  end
 
+  # GET /projects/:id/user_stories_master
+  def user_stories_master
+    if !@project.scrum_masters.include? current_user
+      redirect_to root_path
+    end
   end
 
 
   # GET /projects/:id/show_team
   def show_team
+
     @all_users = User.all
-    @not_in_team = (@all_users-@project.users) | (@project.users-@all_users) #obtiene todos los usuarios que no son del equipo
+
   end
 
   # GET /projects/new

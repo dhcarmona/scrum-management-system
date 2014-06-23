@@ -4,19 +4,21 @@
         <p>&nbsp;</p>
 
     <div class="panel panel-primary" width="500px">
-      <div class="panel-heading"><h3 class="panel-title">Criterion Details</h3></div>
+      <div class="panel-heading"><h3 class="panel-title">Responsible Assigment</h3></div>
         <div align="center">
    
-              <%= simple_form_for(@success_criterion) do |f| %>
+              <%= simple_form_for(@user_story) do |f| %>
 
                 <%= f.error_notification %>
+                <p>&nbsp;</p>
                 <div class="form-inputs">
-                  <%= f.input :description, :input_html => {:style=> 'width: 300px', :align=>"center"} %>
-                  <%= f.input :completed %>
-                  <%= f.hidden_field :user_story_id, :value => @success_criterion.user_story_id%>
+                <%= f.label "Select Developer/Tester Responsible for this Story:" %><br>
+                <p>&nbsp;</p>
+                  <%= f.collection_select :user_id, @user_story.project.users, :id, :email, prompt: 'Select Responsible' %>
                 </div>
 
                 <div class="form-actions">
+                <p>&nbsp;</p>
                   <%= f.button :submit, :class => "btn btn-primary"%>
                   <p>&nbsp;</p>
                 </div>

@@ -1,0 +1,21 @@
+<div class="container">
+
+        
+        <p>&nbsp;</p>
+
+    <div class="panel panel-primary" width="500px">
+      <div class="panel-heading"><h3 class="panel-title">Sign Up!</h3></div>
+        <div align="center">
+            <%= simple_form_for(@user, url: register_new_user_path, html: {class: 'form-horizontal'}) do |f| %>
+                    <%= f.error_notification %>
+
+                      <%= f.input :email, :input_html => {:style=> 'width: 200px', :align=>"center"}, required: true, autofocus: true, :label => "Email", :placeholder => "peter@domain.com", :as => "email"%>
+                      <%= f.input :password, :input_html => {:style=> 'width: 200px'}, required: true, :label => "Password", :placeholder => "8 characters or more." %>
+                      <%= f.input :password_confirmation, :input_html => {:style=> 'width: 200px'}, required: true, :label => "Password Confirmation", :placeholder => "The same as above!" %>
+              
+                        <%= f.button :submit, "Create Account", :class => "btn btn-primary" %>
+                    <p>&nbsp;</p>
+                  <% end %>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="container">
+
+        
+        <p>&nbsp;</p>
+
+    <div class="panel panel-primary" width="500px">
+      <div class="panel-heading"><h3 class="panel-title">Add Hours</h3></div>
+        <div align="center">
+   
+              <%= simple_form_for(@user_story_task, :method => "post", url: register_more_time_path, html: {class: 'form-horizontal'}) do |f| %>
+
+                <%= f.error_notification %>
+                <p>&nbsp;</p>
+                <div class="form-inputs">
+                <%= f.label "How many Hours do you wish to add?" %><br>
+                <p>&nbsp;</p>
+                  <%= f.input :actual_effort_in_hours, :input_html => {:style=> 'width: 100px', :align=>"center"}%>
+                </div>
+
+                <div class="form-actions">
+                <p>&nbsp;</p>
+                  <%= f.button :submit, :class => "btn btn-primary"%>
+                  <p>&nbsp;</p>
+                </div>
+              <% end %>
+        </div>
+    </div>
+</div>        

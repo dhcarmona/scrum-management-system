@@ -16,10 +16,11 @@
                 <% if current_user && current_user.isadmin %>
                     <%= navbar_dropdown 'Administrator' do %>
                         <%= navbar_item 'Setup Administrator Rights', users_set_sysadmins_path %>
+                        <%= navbar_item 'Register New User', create_user_admin_path %>
                     <% end %>
                 <% end %> 
 
-                <%= navbar_item 'Help', '/misc/help' %>
+                
                 <% if current_user %>
                         <li >
                           <a href="/users/sign_out" data-method="delete">

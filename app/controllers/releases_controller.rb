@@ -1,5 +1,6 @@
 class ReleasesController < ApplicationController
-  before_action :set_release, only: [:show, :edit, :update, :destroy]
+  before_action :set_release, only: [:show, :edit, :update, :destroy,
+                                    :sprints_master]
 
   # GET /releases
   # GET /releases.json
@@ -10,6 +11,12 @@ class ReleasesController < ApplicationController
   # GET /releases/1
   # GET /releases/1.json
   def show
+  end
+
+  #GET
+  #Vista para que el master pueda ver, añadir y modificar los sprints del release
+  def sprints_master
+
   end
 
   # GET /releases/new

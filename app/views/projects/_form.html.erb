@@ -13,13 +13,8 @@
                 <div class="form-inputs">
                   <%= f.input :name, :input_html => {:style=> 'width: 200px', :align=>"center"} %>
                   <%= f.input :description, :input_html => {:style=> 'width: 300px', :align=>"center"} %>
-                  <%= f.label "Product Owner" %>
-                  <%= f.collection_select :product_owner_id, @users, :id, :email, prompt: 'Choose an User', :label => "Product Owner" %>
-                  <br>
-                  <%= f.label "Scrum Master" %>
-                  <%= f.collection_select :scrum_master_id, @users, :id, :email, prompt: 'Choose an User', :label => "Product Owner" %>
                   <%= f.input :sprint_duration_in_weeks, :input_html => {:style=> 'width: 100px', :align=>"center"} %>
-
+                  <%= f.label "The Team for this project can be appointed with the Team option in the main page." %>
                 </div>
 
                 <div class="form-actions">

@@ -11,7 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140614192053) do
+ActiveRecord::Schema.define(version: 20140622032910) do
+
+  create_table "added_times", force: true do |t|
+    t.integer  "hours"
+    t.datetime "datetime"
+    t.integer  "user_story_task_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "masters", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "owners", force: true do |t|
+    t.integer  "project_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "projects", force: true do |t|
     t.string   "name"
@@ -70,9 +92,9 @@ ActiveRecord::Schema.define(version: 20140614192053) do
   create_table "success_criterions", force: true do |t|
     t.text     "description"
     t.boolean  "completed"
-    t.integer  "user_story_task_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "user_story_id"
   end
 
   create_table "user_stories", force: true do |t|

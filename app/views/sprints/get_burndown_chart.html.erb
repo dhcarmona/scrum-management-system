@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="panel panel-primary" width="500px">
+      <div class="panel-heading"><h3 class="panel-title">Select Metric</h3></div>
+        <div align="center">
+
+            <%= link_to 'Points', get_chart_points_path(@sprint), :class => 'btn btn-large btn-default'%>
+            <%= "-----" %>
+
+
+            <%= link_to 'Hours', get_chart_hours_path(@sprint), :class => 'btn btn-large btn-default'%>
+
+
+      </div>
+    </div>
+  </div>
+</div>

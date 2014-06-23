@@ -1,5 +1,6 @@
 class UserStoriesController < ApplicationController
-  before_action :set_user_story, only: [:show, :edit, :update, :destroy]
+  before_action :set_user_story, only: [:show, :edit, :update, :destroy, :responsible_assignment, :sprint_assignment,
+                                        :tasks, :crits]
 
   # GET /user_stories
   # GET /user_stories.json
@@ -18,6 +19,32 @@ class UserStoriesController < ApplicationController
     @project = Project.find(params[:project_id])
     @user_story.project = @project
     @users = User.all
+  end
+
+  # GET /user_stories/;id/tasks
+  def tasks
+    
+  end
+
+  # GET /user_stories/;id/crits
+  def crits
+    
+  end
+
+  #GET /user_stories/:id/responsible_assignment
+
+  def responsible_assignment
+
+  end
+
+  #GET /user_stories/:id/tasks
+  def tasks
+
+  end
+
+
+  def sprint_assignment
+
   end
 
   # GET /user_stories/1/edit
